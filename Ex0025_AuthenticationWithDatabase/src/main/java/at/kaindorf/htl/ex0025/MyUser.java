@@ -24,3 +24,8 @@ public class MyUser {
   @Column(nullable = false)
   private Role role;
 }
+
+enum Role {
+  ROLE_USER,
+  ROLE_ADMIN
+}

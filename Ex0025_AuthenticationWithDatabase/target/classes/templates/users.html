@@ -5,31 +5,33 @@
   <title>Registration and Login System</title>
 </head>
 <body>
-  <nav>
-    <div><a href="/">Registration and Login System</a></div>
-    <div>
-      <ul>
-        <li><a th:href="@{/register}">Register</a></li>
-        <li><a th:href="@{/logout}">Logout</a></li>
-      </ul>
-    </div>
-  </nav>
-  <section>
-    <h1>Registred Users</h1>
-    <table>
-      <thead>
-        <tr>
-          <td>Name</td>
-          <td>Year Of Birth</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="user : ${users}">
-          <td th:text="${user.name}"></td>
-          <td th:text="${user.yearOfBirth}"></td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
+<nav>
+  <div><a href="/">Registration and Login System</a></div>
+  <div>
+    <ul>
+      <li><a th:if="${#authorization.expression('hasRole('ROLE_ADMIN')')}" th:href="@{/addShoe}">Add Shoe</a></li>
+      <li><a th:href="@{/logout}">Logout</a></li>
+    </ul>
+  </div>
+</nav>
+<section>
+  <h1>Registered Shoes</h1>
+  <table>
+    <thead>
+    <tr>
+      <td>Name</td>
+      <td>Size</td>
+      <td>Color</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="shoe : ${shoes}">
+      <td th:text="${shoe.name}"></td>
+      <td th:text="${shoe.size}"></td>
+      <td th:text="${shoe.color}"></td>
+    </tr>
+    </tbody>
+  </table>
+</section>
 </body>
 </html>

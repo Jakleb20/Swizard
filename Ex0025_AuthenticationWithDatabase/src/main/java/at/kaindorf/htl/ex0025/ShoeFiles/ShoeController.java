@@ -1,4 +1,5 @@
-package at.kaindorf.htl.ex0025.Shoe;
+package at.kaindorf.htl.ex0025.ShoeFiles;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,17 +25,17 @@ public class ShoeController {
     @GetMapping("/admin/addShoe")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String showAddShoeForm(Model model) {
-        model.addAttribute("shoe", new Shoe());
+        model.addAttribute("shoe", new ShoeDto());
         return "addShoe";
     }
 
     @PostMapping("/admin/addShoe")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String addShoe(@Valid @ModelAttribute("shoe") Shoe shoe, BindingResult result, Model model) {
+    public String addShoe(@Valid @ModelAttribute("shoe") ShoeDto shoeDto, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "addShoe";
         }
-        shoeService.saveShoe(shoe);
+        shoeService.saveShoe(shoeDto);
         return "redirect:/shoes";
     }
 
@@ -44,3 +45,5 @@ public class ShoeController {
         return "shoes";
     }
 }
+
+
