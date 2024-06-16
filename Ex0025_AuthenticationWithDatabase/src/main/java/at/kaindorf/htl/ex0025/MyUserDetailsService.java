@@ -10,36 +10,29 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 @Service
-public class MyUserDetailsService implements UserDetailsService
-{
-  private MyUserRepository myUserRepository;
+public class MyUserDetailsService implements UserDetailsService {
 
+  private MyUserRepository myUserRepository;
   private Logger logger = LoggerFactory.getLogger(getClass());
 
   @Autowired
-  public MyUserDetailsService(MyUserRepository myUserRepository)
-  {
+  public MyUserDetailsService(MyUserRepository myUserRepository) {
     this.myUserRepository = myUserRepository;
   }
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
-  {
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    logger.info("Loading user by username: {}", username);
     MyUser user = myUserRepository.findByName(username);
-    logger.info("--> "+user);
-    if(user != null)
-    {
-      List<SimpleGrantedAuthority> roles = new ArrayList<>();
-      roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-      return new User(user.getName(), user.getPassword(), roles);
-    }
-    else
-    {
-      throw new UsernameNotFoundException("--> Invalid username !!!");
+    if (user != null) {
+      logger.info("User found: {}", user);
+      return new User(user.getName(), user.getPassword(), Collections.singleton(new SimpleGrantedAuthority(user.getRole().name())));
+    } else {
+      logger.error("User not found: {}", username);
+      throw new UsernameNotFoundException("Invalid username: " + username);
     }
   }
 }

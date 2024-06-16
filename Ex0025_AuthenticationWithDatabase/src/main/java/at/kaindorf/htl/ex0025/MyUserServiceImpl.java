@@ -8,41 +8,35 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class MyUserServiceImpl implements IMyUserService
-{
+public class MyUserServiceImpl implements IMyUserService {
   private MyUserRepository userRepository;
-
   private PasswordEncoder passwordEncoder;
 
   @Autowired
-  public MyUserServiceImpl(MyUserRepository userRepository, PasswordEncoder passwordEncoder)
-  {
+  public MyUserServiceImpl(MyUserRepository userRepository, PasswordEncoder passwordEncoder) {
     this.userRepository = userRepository;
     this.passwordEncoder = passwordEncoder;
   }
 
   @Override
-  public void saveUser(UserDto userDto)
-  {
+  public void saveUser(UserDto userDto) {
     MyUser user = new MyUser();
     user.setName(userDto.getName());
     user.setYearOfBirth(userDto.getYearOfBirth());
-    user.setPassword( passwordEncoder.encode(userDto.getPassword()) );
+    user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+    user.setRole(Role.ROLE_USER);
     userRepository.save(user);
   }
 
   @Override
-  public MyUser findByName(String name)
-  {
+  public MyUser findByName(String name) {
     return userRepository.findByName(name);
   }
 
   @Override
-  public List<UserDto> findAllUsers()
-  {
+  public List<UserDto> findAllUsers() {
     List<MyUser> users = userRepository.findAll();
-    return users.stream().map( user ->
-    {
+    return users.stream().map(user -> {
       UserDto userDto = new UserDto();
       userDto.setName(user.getName());
       userDto.setYearOfBirth(user.getYearOfBirth());
