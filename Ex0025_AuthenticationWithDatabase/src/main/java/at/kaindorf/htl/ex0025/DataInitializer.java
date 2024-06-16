@@ -10,6 +10,9 @@ import jakarta.annotation.PostConstruct;
 public class DataInitializer {
 
     @Autowired
+    private MyUserRepository myUser;
+
+    @Autowired
     private MyUserRepository myUserRepository;
 
     @Autowired
@@ -35,4 +38,6 @@ public class DataInitializer {
             myUserRepository.save(user);
         }
     }
+
 }
+

@@ -3,31 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Shoe</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <nav>
     <a href="/">Home</a>
-    <a href="/shoes">Shoes</a>
-    <a href="/logout">Logout</a>
+    <a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/logout}">Logout</a>
 </nav>
 <section>
-    <h1>Add Shoe</h1>
-    <form th:action="@{/admin/addShoe}" th:object="${shoe}" method="post">
+    <h2>Add Shoe</h2>
+    <form th:object="${shoe}" method="post" th:action="@{/admin/addShoe}">
         <div>
-            <label>Brand</label>
-            <input type="text" th:field="*{brand}" placeholder="Enter brand">
-            <p th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></p>
-        </div>
-        <div>
-            <label>Model</label>
-            <input type="text" th:field="*{model}" placeholder="Enter model">
-            <p th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></p>
+            <label>Name</label>
+            <input th:field="*{name}" type="text">
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
         </div>
         <div>
             <label>Size</label>
-            <input type="number" step="0.1" th:field="*{size}" placeholder="Enter size">
-            <p th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></p>
+            <input th:field="*{size}" type="number">
+        </div>
+        <div>
+            <label>Color</label>
+            <input th:field="*{color}" type="text">
         </div>
         <div>
             <button type="submit">Add Shoe</button>

@@ -1,21 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thmeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Registration and Login System</title>
+  <title>Home Page</title>
 </head>
 <body>
-  <section>
-    <h1>Welcome to Registration and Login System</h1>
-  </section>
-  <nav>
-    <a>Registration and Login System</a>
-    <div>
-      <ul>
-        <li><a href="/register">Register</a></li>
-        <li><a href="login">Login</a></li>
-      </ul>
-    </div>
-  </nav>
+<h1>Welcome</h1>
+
+<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+        <p>This content is only visible to users with the role ROLE_ADMIN.</p>
+    </span>
+
+<span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+        <p>This content is only visible to users with the role ROLE_USER.</p>
+    </span>
 </body>
 </html>
