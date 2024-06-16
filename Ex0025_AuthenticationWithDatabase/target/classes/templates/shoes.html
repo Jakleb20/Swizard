@@ -4,22 +4,33 @@
     <title>Shoe List</title>
 </head>
 <body>
-<h1>All Shoes</h1>
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Size</th>
-        <th>Color</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="shoe : ${shoes}">
-        <td th:text="${shoe.name}"></td>
-        <td th:text="${shoe.size}"></td>
-        <td th:text="${shoe.color}"></td>
-    </tr>
-    </tbody>
-</table>
+<h1>Shoe Store</h1>
+<div>
+    <p>You are a <span th:text="${#authentication.principal.authorities}"></span></p>
+</div>
+<nav>
+    <a href="/">Home</a>
+    <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{/admin/addShoe}">Add Shoe</a>
+    <a th:href="@{/logout}">Logout</a>
+</nav>
+<section>
+    <h1>All Shoes</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Color</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="shoe : ${shoes}">
+            <td th:text="${shoe.name}"></td>
+            <td th:text="${shoe.size}"></td>
+            <td th:text="${shoe.color}"></td>
+        </tr>
+        </tbody>
+    </table>
+</section>
 </body>
 </html>

@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Home Page</title>
+    <title>Home Page</title>
 </head>
 <body>
-<h1>Welcome</h1>
-
-<span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-        <p>This content is only visible to users with the role ROLE_ADMIN.</p>
-    </span>
-
-<span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
-        <p>This content is only visible to users with the role ROLE_USER.</p>
-    </span>
+<h1>Welcome to Shoe Store</h1>
+<nav>
+    <a th:href="@{/login}">Login</a>
+    <br/>
+    <a th:href="@{/register}">Register</a>
+</nav>
 </body>
 </html>
