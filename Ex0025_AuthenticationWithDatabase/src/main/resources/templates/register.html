@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration and Login System</title>
+</head>
+<body>
+  <nav>
+    <a href="/">Registration and Login System</a>
+  </nav>
+  <section>
+
+    <div th:if="${param.success}">You're successfully registered to your app !</div>
+
+    <h2>Registration</h2>
+
+    <div>
+      <form th:object="${user}" method="post" th:action="@{register/save}">
+
+        <div>
+          <label>Name</label>
+          <input placeholder="Enter name" th:field="*{name}" type="text">
+          <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+        </div>
+
+        <div>
+          <label>Year of Birth</label>
+          <input placeholder="Enter year of birth" th:field="*{yearOfBirth}" type="number">
+        </div>
+
+        <div>
+          <label>Password</label>
+          <input placeholder="Enter password" th:field="*{password}" type="password">
+          <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+        </div>
+
+        <div>
+          <button type="submit">Register</button>
+          <span>Already registerd?<a href="/">Login here</a></span>
+        </div>
+
+      </form>
+    </div>
+
+  </section>
+</body>
+</html>
