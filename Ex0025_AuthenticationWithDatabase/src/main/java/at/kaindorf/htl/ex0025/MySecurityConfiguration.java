@@ -38,7 +38,7 @@ public class MySecurityConfiguration {
                     .logoutSuccessUrl("/login?logout")
                     .permitAll())
             .exceptionHandling(handler -> handler
-                    .accessDeniedPage("/403")); // Benutze die neue Syntax für die Fehlerseite
+                    .accessDeniedPage("/403")); // Verwende die benutzerdefinierte 403-Seite
 
     return http.build();
   }
@@ -48,5 +48,6 @@ public class MySecurityConfiguration {
     return new BCryptPasswordEncoder();
   }
 }
+
 
 

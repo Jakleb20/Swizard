@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Shoe</title>
+</head>
+<body>
+<nav>
+    <a href="/">Home</a>
+    <a th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/logout}">Logout</a>
+</nav>
+<section>
+    <h2>Add Shoe</h2>
+    <form th:object="${shoe}" method="post" th:action="@{/admin/addShoe}">
+        <div>
+            <label>Name</label>
+            <input th:field="*{name}" type="text">
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+        </div>
+        <div>
+            <label>Size</label>
+            <input th:field="*{size}" type="number">
+        </div>
+        <div>
+            <label>Color</label>
+            <input th:field="*{color}" type="text">
+        </div>
+        <div>
+            <button type="submit">Add Shoe</button>
+        </div>
+    </form>
+</section>
+</body>
+</html>
